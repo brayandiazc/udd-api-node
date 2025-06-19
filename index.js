@@ -27,10 +27,10 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "API de Estudiantes y Cursos",
-      version: "1.0.0",
+      title: "API de Estudiantes, Cursos e Inscripciones",
+      version: "2.0.0",
       description:
-        "Documentación de la API de estudiantes y cursos con Swagger",
+        "Documentación de la API de estudiantes, cursos e inscripciones con Swagger",
     },
     servers: [
       {
@@ -54,13 +54,15 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html")); // Enviamos el archivo index.html
 });
 
-// Importar las rutas de los recursos (estudiantes y cursos)
+// Importar las rutas de los recursos (estudiantes, cursos e inscripciones)
 const estudianteRoutes = require("./routes/estudianteRoutes");
 const cursoRoutes = require("./routes/cursoRoutes");
+const inscripcionRoutes = require("./routes/inscripcionRoutes");
 
-// Usar las rutas de los recursos (estudiantes y cursos)
+// Usar las rutas de los recursos (estudiantes, cursos e inscripciones)
 app.use("/estudiantes", estudianteRoutes);
 app.use("/cursos", cursoRoutes);
+app.use("/inscripciones", inscripcionRoutes);
 
 // Iniciar el servidor en el puerto especificado
 app.listen(PORT, () => {

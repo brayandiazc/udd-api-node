@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>API de Estudiantes y Cursos</title>
+    <title>🎓 API de Estudiantes, Cursos e Inscripciones</title>
 
     <!-- Importar NES.css -->
     <link
@@ -20,22 +20,109 @@
       body {
         font-family: "Press Start 2P", cursive;
         padding: 20px;
+        background-color: #f4f4f4;
       }
       h1,
-      h2 {
+      h2,
+      h3 {
         margin-bottom: 20px;
+        color: #333;
       }
       nav ul {
         list-style: none;
         padding: 0;
         display: flex;
         gap: 10px;
+        flex-wrap: wrap;
       }
       nav ul li {
         display: inline-block;
       }
       section {
         margin-top: 40px;
+      }
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .feature-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .endpoint-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+      }
+      .endpoint-table th,
+      .endpoint-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+        font-size: 12px;
+      }
+      .endpoint-table th {
+        background-color: #f2f2f2;
+      }
+      .method-get {
+        color: #61affe;
+      }
+      .method-post {
+        color: #49cc90;
+      }
+      .method-put {
+        color: #fca130;
+      }
+      .method-delete {
+        color: #f93e3e;
+      }
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .stat-card {
+        text-align: center;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+        color: #333;
+      }
+      .stat-label {
+        font-size: 0.8em;
+        color: #666;
+        margin-top: 5px;
+      }
+      .code-example {
+        background: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 10px 0;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        overflow-x: auto;
+      }
+      .highlight {
+        background: #fff3cd;
+        padding: 10px;
+        border-radius: 4px;
+        border-left: 4px solid #ffc107;
+        margin: 15px 0;
+      }
+      .emoji {
+        font-size: 1.2em;
+        margin-right: 8px;
       }
     </style>
   </head>
@@ -44,136 +131,394 @@
     <header>
       <nav class="nes-container is-rounded">
         <ul>
-          <li><a href="/" class="nes-btn">Inicio</a></li>
-          <li><a href="/estudiantes" class="nes-btn">Usuarios</a></li>
-          <li><a href="/cursos" class="nes-btn">Cursos</a></li>
-          <li><a href="/api-docs" class="nes-btn is-primary">API Docs</a></li>
+          <li><a href="/" class="nes-btn">🏠 Inicio</a></li>
+          <li><a href="/estudiantes" class="nes-btn">👥 Estudiantes</a></li>
+          <li><a href="/cursos" class="nes-btn">📚 Cursos</a></li>
+          <li><a href="/inscripciones" class="nes-btn">🎫 Inscripciones</a></li>
+          <li>
+            <a href="/api-docs" class="nes-btn is-primary">📖 API Docs</a>
+          </li>
         </ul>
       </nav>
     </header>
 
     <br />
-    <!-- Header principal con nombre del proyecto y descripción -->
+
+    <!-- Header principal -->
     <main>
       <header class="nes-container with-title is-centered">
-        <h1 class="title">API de Estudiantes y Cursos</h1>
+        <h1 class="title">🎓 API de Estudiantes, Cursos e Inscripciones</h1>
         <p>
-          Una API RESTful para gestionar estudiantes y cursos, con integración
-          Swagger y un despliegue en Vercel.
+          Una <strong>API RESTful completa</strong> para gestionar un sistema
+          académico con estudiantes, cursos e inscripciones. Proyecto educativo
+          con documentación Swagger y despliegue en Vercel.
         </p>
-        <a
-          href="https://github.com/brayandiazc/node_api_estudiantes"
-          class="nes-btn is-primary"
-        >
-          Ver repositorio en GitHub
-        </a>
+        <div style="margin: 20px 0">
+          <a
+            href="https://github.com/brayandiazc/node_api_estudiantes"
+            class="nes-btn is-primary"
+            target="_blank"
+          >
+            📁 Ver en GitHub
+          </a>
+          <a href="/api-docs" class="nes-btn is-success">
+            📖 Documentación Swagger
+          </a>
+        </div>
       </header>
 
-      <!-- Sección con explicación del proyecto y sus etapas -->
+      <!-- Estadísticas del proyecto -->
       <section class="nes-container with-title">
-        <h2 class="title">Etapas y Ramas Disponibles</h2>
+        <h2 class="title">📊 Estadísticas del Proyecto</h2>
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number">22</div>
+            <div class="stat-label">Estudiantes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">22</div>
+            <div class="stat-label">Cursos</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">22</div>
+            <div class="stat-label">Inscripciones</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Endpoints</div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Características principales -->
+      <section class="nes-container with-title">
+        <h2 class="title">✨ Características Principales</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>👥 Gestión de Estudiantes</h3>
+            <ul>
+              <li>Registro con información completa</li>
+              <li>Validación de emails únicos</li>
+              <li>Filtrado por carrera y semestre</li>
+              <li>Estados: activo, inactivo, graduado</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>📚 Gestión de Cursos</h3>
+            <ul>
+              <li>Cursos con cupos y precios</li>
+              <li>Instructores asignados</li>
+              <li>Categorías: Backend, Frontend, etc.</li>
+              <li>Control automático de disponibilidad</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🎫 Sistema de Inscripciones</h3>
+            <ul>
+              <li>Matrícula con validaciones</li>
+              <li>Control de cupos disponibles</li>
+              <li>Estados: activa, completada, cancelada</li>
+              <li>Sistema de calificaciones (1-5)</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🔍 Consultas Avanzadas</h3>
+            <ul>
+              <li>Filtrado por múltiples criterios</li>
+              <li>Búsqueda por instructor</li>
+              <li>Rangos de precios</li>
+              <li>Estadísticas en tiempo real</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Endpoints principales -->
+      <section class="nes-container with-title">
+        <h2 class="title">🚀 Endpoints Principales</h2>
+
+        <h3>👥 Estudiantes</h3>
+        <table class="endpoint-table">
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Endpoint</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/estudiantes</td>
+              <td>Obtener todos los estudiantes</td>
+            </tr>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/estudiantes/:id</td>
+              <td>Obtener estudiante por ID</td>
+            </tr>
+            <tr>
+              <td class="method-post">POST</td>
+              <td>/estudiantes</td>
+              <td>Crear nuevo estudiante</td>
+            </tr>
+            <tr>
+              <td class="method-put">PUT</td>
+              <td>/estudiantes/:id</td>
+              <td>Actualizar estudiante</td>
+            </tr>
+            <tr>
+              <td class="method-delete">DELETE</td>
+              <td>/estudiantes/:id</td>
+              <td>Eliminar estudiante</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>📚 Cursos</h3>
+        <table class="endpoint-table">
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Endpoint</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/cursos</td>
+              <td>Obtener todos los cursos</td>
+            </tr>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/cursos/disponibles</td>
+              <td>Cursos con cupos disponibles</td>
+            </tr>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/cursos/categoria/:categoria</td>
+              <td>Filtrar por categoría</td>
+            </tr>
+            <tr>
+              <td class="method-post">POST</td>
+              <td>/cursos</td>
+              <td>Crear nuevo curso</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>🎫 Inscripciones</h3>
+        <table class="endpoint-table">
+          <thead>
+            <tr>
+              <th>Método</th>
+              <th>Endpoint</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/inscripciones</td>
+              <td>Obtener todas las inscripciones</td>
+            </tr>
+            <tr>
+              <td class="method-post">POST</td>
+              <td>/inscripciones</td>
+              <td>Crear nueva inscripción</td>
+            </tr>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/inscripciones/estudiante/:id</td>
+              <td>Inscripciones por estudiante</td>
+            </tr>
+            <tr>
+              <td class="method-get">GET</td>
+              <td>/inscripciones/curso/:id</td>
+              <td>Estudiantes por curso</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Ejemplos de uso -->
+      <section class="nes-container with-title">
+        <h2 class="title">💡 Ejemplos de Uso</h2>
+
+        <div class="highlight">
+          <strong>💡 Tip:</strong> Puedes probar todos estos endpoints
+          directamente en la
+          <a href="/api-docs" class="nes-btn is-small"
+            >📖 Documentación Swagger</a
+          >
+        </div>
+
+        <h3>Crear un Estudiante</h3>
+        <div class="code-example">
+          curl -X POST http://localhost:3000/estudiantes \ -H "Content-Type:
+          application/json" \ -d '{ "nombre": "Juan Pérez", "edad": 20, "email":
+          "juan.perez@email.com", "carrera": "Ingeniería Informática",
+          "semestre": 4 }'
+        </div>
+
+        <h3>Crear un Curso</h3>
+        <div class="code-example">
+          curl -X POST http://localhost:3000/cursos \ -H "Content-Type:
+          application/json" \ -d '{ "nombre": "Curso de Node.js", "duracion": "4
+          semanas", "precio": 150000, "instructor": "Carlos Mendoza", "cupos":
+          25, "categoria": "Backend" }'
+        </div>
+
+        <h3>Inscribir un Estudiante</h3>
+        <div class="code-example">
+          curl -X POST http://localhost:3000/inscripciones \ -H "Content-Type:
+          application/json" \ -d '{ "estudianteId": 1, "cursoId": 1 }'
+        </div>
+      </section>
+
+      <!-- Tecnologías utilizadas -->
+      <section class="nes-container with-title">
+        <h2 class="title">🛠️ Tecnologías Utilizadas</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h3>🔧 Backend</h3>
+            <ul>
+              <li><strong>Node.js</strong> - Runtime de JavaScript</li>
+              <li><strong>Express.js</strong> - Framework web</li>
+              <li><strong>Swagger</strong> - Documentación de API</li>
+              <li><strong>Nodemon</strong> - Reinicio automático</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🎨 Frontend</h3>
+            <ul>
+              <li><strong>NES.css</strong> - Framework CSS retro</li>
+              <li><strong>HTML5</strong> - Estructura semántica</li>
+              <li><strong>JavaScript</strong> - Interactividad</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>🚀 Despliegue</h3>
+            <ul>
+              <li><strong>Vercel</strong> - Plataforma de hosting</li>
+              <li><strong>Git</strong> - Control de versiones</li>
+              <li><strong>GitHub</strong> - Repositorio remoto</li>
+            </ul>
+          </div>
+          <div class="feature-card">
+            <h3>📚 Herramientas</h3>
+            <ul>
+              <li><strong>Postman</strong> - Pruebas de API</li>
+              <li><strong>cURL</strong> - Línea de comandos</li>
+              <li><strong>Swagger UI</strong> - Documentación interactiva</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Propósito educativo -->
+      <section class="nes-container with-title">
+        <h2 class="title">🎓 Propósito Educativo</h2>
         <p>
-          El proyecto fue desarrollado en las siguientes etapas, cada una
-          asociada a una rama en Git:
+          Este proyecto está diseñado para
+          <strong>aprender y practicar</strong> el desarrollo de APIs RESTful
+          con Node.js y Express. Es perfecto para estudiantes que quieren:
         </p>
-
         <ul>
           <li>
-            <strong>Etapa 1: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_1/crear_server"
-              >Crear el Servidor Básico</a
-            >
-            - Iniciamos el proyecto con Node.js y Express para levantar el
-            primer servidor básico.
+            🎯 <strong>Aprender APIs RESTful</strong> - Endpoints bien
+            estructurados y documentados
           </li>
           <li>
-            <strong>Etapa 2: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_2/nodemon_y_nodenv"
-              >Configuración Inicial con Nodemon y dotenv</a
-            >
-            - Se agregaron nodemon y dotenv para mejorar el flujo de desarrollo
-            y configuración.
+            🏗️ <strong>Patrón MVC</strong> - Separación clara de
+            responsabilidades
           </li>
           <li>
-            <strong>Etapa 3: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_3/api_v1"
-              >Implementar API v1 con Rutas y CRUD Parcial</a
-            >
-            - Se implementaron rutas iniciales para gestionar estudiantes y
-            cursos (solo lectura con GET).
+            ✅ <strong>Validaciones</strong> - Manejo robusto de datos y errores
           </li>
           <li>
-            <strong>Etapa 4: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_4/vista_index"
-              >Añadir Vistas HTML</a
-            >
-            - Se agregó una vista HTML para mostrar información básica en la
-            página de inicio, sirviendo el archivo desde la ruta raíz.
+            📖 <strong>Documentación</strong> - Swagger como estándar de la
+            industria
           </li>
           <li>
-            <strong>Etapa 5: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_5/simulacion_crud"
-              >Implementar CRUD Completo para Estudiantes y Cursos</a
-            >
-            - Se implementaron las operaciones completas de CRUD (Crear, Leer,
-            Actualizar, Eliminar) para estudiantes y cursos.
+            ☁️ <strong>Despliegue</strong> - Proceso completo de publicación en
+            la nube
           </li>
           <li>
-            <strong>Etapa 6: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_6/modelo_vista_controlador"
-              >Aplicar el Patrón MVC</a
-            >
-            - Se reorganizó el proyecto siguiendo el patrón de arquitectura MVC
-            para separar la lógica en controladores, modelos y vistas.
-          </li>
-          <li>
-            <strong>Etapa 7: </strong>
-            <a
-              href="https://github.com/brayandiazc/node_api_estudiantes/tree/etapa_7/swangger"
-              >Integrar Swagger para Documentación de la API</a
-            >
-            - Se integró Swagger para documentar automáticamente la API. La
-            documentación está disponible en `/api-docs`.
-          </li>
-        </ul>
-
-        <h3>Despliegue</h3>
-        <p>
-          El proyecto ha sido desplegado exitosamente en Vercel. Puedes acceder
-          a la API y a su documentación de Swagger en los siguientes enlaces:
-        </p>
-        <ul>
-          <li>
-            <a
-              href="https://node-api-estudiantes.vercel.app/"
-              class="nes-btn is-success"
-              >API en producción</a
-            >
+            🔗 <strong>Relaciones</strong> - Conectar entidades
+            (estudiantes-cursos-inscripciones)
           </li>
         </ul>
       </section>
+
+      <!-- Enlaces importantes -->
+      <section class="nes-container with-title">
+        <h2 class="title">🔗 Enlaces Importantes</h2>
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+          "
+        >
+          <a href="/api-docs" class="nes-btn is-primary"
+            >📖 Documentación Swagger</a
+          >
+          <a href="/estudiantes" class="nes-btn">👥 Ver Estudiantes</a>
+          <a href="/cursos" class="nes-btn">📚 Ver Cursos</a>
+          <a href="/inscripciones" class="nes-btn">🎫 Ver Inscripciones</a>
+          <a
+            href="https://github.com/brayandiazc/node_api_estudiantes"
+            class="nes-btn is-success"
+            target="_blank"
+            >📁 Repositorio GitHub</a
+          >
+          <a
+            href="https://node-api-estudiantes.vercel.app/"
+            class="nes-btn is-warning"
+            target="_blank"
+            >🚀 Versión en Producción</a
+          >
+        </div>
+      </section>
     </main>
+
     <br />
 
     <!-- Footer -->
     <footer class="nes-container is-dark">
-      <p>
-        &copy; 2024 por
-        <a href="https://brayandiazc.com">Brayan Diaz C</a> - Proyecto educativo
-        con Express y Node.js.
-      </p>
-      <a
-        href="https://github.com/brayandiazc/node_api_estudiantes"
-        class="nes-btn is-primary"
-        >Ver repositorio en GitHub</a
-      >
+      <div style="text-align: center">
+        <p>
+          &copy; 2024 por
+          <a href="https://brayandiazc.com" target="_blank">Brayan Diaz C</a>
+          - Proyecto educativo con Express y Node.js
+        </p>
+        <div style="margin: 15px 0">
+          <a
+            href="https://github.com/brayandiazc"
+            class="nes-btn is-primary"
+            target="_blank"
+            >🐙 GitHub</a
+          >
+          <a
+            href="https://linkedin.com/in/brayandiazc"
+            class="nes-btn is-success"
+            target="_blank"
+            >💼 LinkedIn</a
+          >
+          <a
+            href="https://brayandiazc.com"
+            class="nes-btn is-warning"
+            target="_blank"
+            >🌐 Portfolio</a
+          >
+        </div>
+        <p style="font-size: 0.8em; color: #ccc">
+          ⌨️ Desarrollado con ❤️ para la comunidad educativa 😊
+        </p>
+      </div>
     </footer>
   </body>
 </html>
