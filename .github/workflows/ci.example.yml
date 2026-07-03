@@ -1,0 +1,37 @@
+# ==============================================================================
+# Esqueleto de CI de ejemplo para Node.js.
+# El CI activo del proyecto vive en `nodejs.yml`. Este archivo es una referencia
+# más completa (lint + test + build); mientras tenga la extensión `.example`,
+# GitHub no lo ejecuta. Renómbralo a `ci.yml` y ajústalo si lo necesitas.
+# ==============================================================================
+
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Instalar dependencias
+        run: npm install
+      # Aún no hay linter configurado (ver docs/conventions/quality-tooling.md).
+      # Cuando adoptes ESLint, descomenta:
+      # - name: Lint
+      #   run: npm run lint
+      - name: Tests
+        run: npm test
+      # Este proyecto no requiere paso de build (no hay bundling/transpilación).

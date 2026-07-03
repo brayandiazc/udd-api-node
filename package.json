@@ -1,6 +1,6 @@
 {
-  "name": "node_api_estudiantes",
-  "version": "1.0.0",
+  "name": "udd-api-node",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
     "test": "echo 'No tests yet' && exit 0",
@@ -8,13 +8,26 @@
     "dev": "nodemon index.js"
   },
   "keywords": [
-    "API",
-    "REST",
-    "NodeJS"
+    "api",
+    "rest",
+    "nodejs",
+    "express",
+    "swagger",
+    "mvc",
+    "educativo",
+    "udd"
   ],
-  "author": "Brayan Diaz C",
-  "license": "ISC",
-  "description": "API REST para gestionar estudiantes y cursos",
+  "author": "Brayan Diaz C <contact@brayandiazc.com> (https://brayandiazc.com)",
+  "license": "MIT",
+  "description": "API RESTful educativa de estudiantes, cursos e inscripciones construida con Node.js y Express (patrón MVC), como material de reforzamiento para estudiantes de la UDD.",
+  "homepage": "https://github.com/brayandiazc/udd-api-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brayandiazc/udd-api-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/brayandiazc/udd-api-node/issues"
+  },
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

@@ -1,0 +1,61 @@
+# Auto-etiquetado de Pull Requests según los archivos modificados.
+# Reglas ajustadas a la estructura real de udd-api-node.
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.md"
+      - "docs/**/*"
+      - ".github/ISSUE_TEMPLATE/**/*"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
+
+frontend:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "views/**/*"
+
+styles:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.css"
+
+backend:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "controllers/**/*"
+      - "routes/**/*"
+      - "models/**/*"
+      - "index.js"
+
+testing:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "test/**/*"
+      - "tests/**/*"
+      - "**/*.test.*"
+      - "**/*.spec.*"
+
+config:
+  - changed-files:
+    - any-glob-to-any-file:
+      - ".env*"
+      - ".editorconfig"
+      - "vercel.json"
+      - "*.config.*"
+
+ci-cd:
+  - changed-files:
+    - any-glob-to-any-file:
+      - ".github/workflows/**/*"
+      - ".github/dependabot.yml"
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file:
+      - "package.json"
+      - "package-lock.json"
+
+github:
+  - changed-files:
+    - any-glob-to-any-file:
+      - ".github/**/*"

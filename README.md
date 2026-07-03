@@ -1,379 +1,264 @@
-# 🎓 API de Estudiantes, Cursos e Inscripciones
+# udd-api-node
 
-> **Proyecto educativo completo** - Una API RESTful desarrollada con **Node.js** y **Express** para gestionar un sistema académico completo con estudiantes, cursos e inscripciones.
+API RESTful educativa de **Estudiantes, Cursos e Inscripciones**, construida paso a paso con **Node.js** y **Express** como material de reforzamiento para estudiantes de la UDD.
 
-## 📋 Tabla de Contenidos
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+![Node](https://img.shields.io/badge/node-%3E%3D14-339933?logo=node.js&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-blue)
 
-- [Descripción del Proyecto](#-descripción-del-proyecto)
-- [Características Principales](#-características-principales)
-- [Arquitectura del Proyecto](#-arquitectura-del-proyecto)
-- [Endpoints de la API](#-endpoints-de-la-api)
-- [Instalación y Configuración](#-instalación-y-configuración)
-- [Uso de la API](#-uso-de-la-api)
-- [Documentación Swagger](#-documentación-swagger)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Tecnologías Utilizadas](#-tecnologías-utilizadas)
-- [Despliegue](#-despliegue)
-- [Contribuir](#-contribuir)
+## Tabla de Contenidos
 
-## 🎯 Descripción del Proyecto
+- [Descripción](#descripción)
+- [Características](#características)
+- [Requisitos Previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Uso](#uso)
+- [Arquitectura](#arquitectura)
+- [Stack Tecnológico](#stack-tecnológico)
+- [Scripts Disponibles](#scripts-disponibles)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contribución](#contribución)
+- [Troubleshooting](#troubleshooting)
+- [Roadmap](#roadmap)
+- [Documentación](#documentación)
+- [Soporte](#soporte)
+- [Versionado](#versionado)
+- [Autores](#autores)
+- [Licencia](#licencia)
+- [Apóyanos](#apóyanos)
+- [Agradecimientos](#agradecimientos)
 
-Este proyecto es una **API completa** para gestionar un sistema académico que incluye:
+## Descripción
 
-- **👥 Gestión de Estudiantes**: Registro, actualización y consulta de estudiantes con información detallada
-- **📚 Gestión de Cursos**: Administración de cursos con cupos, precios e instructores
-- **🎫 Sistema de Inscripciones**: Matrícula de estudiantes en cursos con validaciones
-- **📊 Consultas Avanzadas**: Filtros por categoría, instructor, disponibilidad, etc.
+**udd-api-node** es una API completa para gestionar un sistema académico con estudiantes, cursos e inscripciones. Nació como proyecto **educativo** de reforzamiento para estudiantes de la Universidad del Desarrollo (UDD): una guía paso a paso para aprender a construir una API RESTful con Node.js y Express aplicando el patrón **MVC (Modelo-Vista-Controlador)**.
 
-### 🎮 Propósito Educativo
+Cubre, con ejemplos funcionales y comentados:
 
-Este proyecto está diseñado para **aprender y practicar**:
+- Desarrollo de APIs RESTful con Node.js y Express.
+- Patrón de arquitectura MVC.
+- Documentación automática con Swagger (OpenAPI 3.0).
+- Validaciones y manejo de errores.
+- Relaciones entre entidades.
+- Despliegue en la nube (Vercel).
 
-- Desarrollo de APIs RESTful con Node.js y Express
-- Patrón de arquitectura MVC (Modelo-Vista-Controlador)
-- Documentación automática con Swagger
-- Validaciones y manejo de errores
-- Relaciones entre entidades
-- Despliegue en la nube
+> **Nota didáctica:** los datos son **simulados en memoria** (arrays en `models/*.js`). No hay base de datos real, por lo que los cambios no persisten al reiniciar el servidor. Esto mantiene el foco en la mecánica de la API.
 
-## ✨ Características Principales
-
-### 🔐 Validaciones Robustas
-
-- Validación de emails únicos
-- Verificación de cupos disponibles
-- Validación de rangos de edad y semestre
-- Prevención de inscripciones duplicadas
-
-### 📈 Funcionalidades Avanzadas
-
-- **Filtrado inteligente**: Por carrera, semestre, categoría, instructor
-- **Gestión de cupos**: Control automático de disponibilidad
-- **Estados de inscripción**: Activa, completada, cancelada
-- **Calificaciones**: Sistema de evaluación (1-5)
-
-### 🎨 Interfaz Moderna
-
-- Diseño retro con NES.css
-- Documentación interactiva con Swagger
-- Navegación intuitiva
-
-## 🏗️ Arquitectura del Proyecto
-
-### Patrón MVC (Modelo-Vista-Controlador)
+### Flujo de Funcionamiento
 
 ```mermaid
-graph TD
-    A[Cliente] --> B[Rutas]
-    B --> C[Controladores]
-    C --> D[Modelos]
-    D --> E[Datos Simulados]
-
-    subgraph "Capa de Presentación"
-        A
-        F[Vista HTML]
-    end
-
-    subgraph "Capa de Lógica"
-        B
-        C
-    end
-
-    subgraph "Capa de Datos"
-        D
-        E
-    end
-
-    A --> F
-    F --> B
+graph LR
+    A[Cliente] -->|HTTP| B[Rutas]
+    B -->|Delegan| C[Controladores]
+    C -->|Validan y operan| D[Modelos en memoria]
+    D -->|Datos| C
+    C -->|Respuesta JSON| A
+    A -->|GET /| E[Vista HTML · NES.css]
+    A -->|GET /api-docs| F[Swagger UI]
 ```
 
-### Estructura de Datos
+## Características
 
-```mermaid
-erDiagram
-    ESTUDIANTE {
-        int id PK
-        string nombre
-        int edad
-        string email UK
-        string carrera
-        int semestre
-        string estado
-        date fechaCreacion
-    }
+- ✅ CRUD completo de estudiantes, cursos e inscripciones.
+- ✅ Filtros avanzados: por carrera, semestre, categoría, instructor, disponibilidad y rango de precio.
+- ✅ Validaciones de negocio: email único, control de cupos, rangos de edad (16–100) y semestre (1–12), prevención de inscripciones duplicadas.
+- ✅ Documentación interactiva con Swagger UI en `/api-docs`.
+- ✅ Vista de inicio con estilo retro (NES.css).
+- 🚧 Autenticación (JWT) — planificada.
+- 📋 Migración a base de datos real y suite de tests — planificadas.
 
-    CURSO {
-        int id PK
-        string nombre
-        string duracion
-        int precio
-        string instructor
-        int cupos
-        int cuposDisponibles
-        string categoria
-        string estado
-        date fechaCreacion
-    }
+## Requisitos Previos
 
-    INSCRIPCION {
-        int id PK
-        int estudianteId FK
-        int cursoId FK
-        date fechaInscripcion
-        string estado
-        int calificacion
-        date fechaCompletado
-    }
+Antes de comenzar, asegúrate de tener instalado:
 
-    ESTUDIANTE ||--o{ INSCRIPCION : "se inscribe en"
-    CURSO ||--o{ INSCRIPCION : "tiene estudiantes"
-```
+- **Node.js**: v14 o superior (el CI usa v20).
+- **npm**: v6 o superior.
+- **Git**: para clonar el repositorio.
 
-## 🚀 Endpoints de la API
+## Instalación
 
-### 👥 Estudiantes
-
-| Método   | Endpoint                          | Descripción                   |
-| -------- | --------------------------------- | ----------------------------- |
-| `GET`    | `/estudiantes`                    | Obtener todos los estudiantes |
-| `GET`    | `/estudiantes/:id`                | Obtener estudiante por ID     |
-| `POST`   | `/estudiantes`                    | Crear nuevo estudiante        |
-| `PUT`    | `/estudiantes/:id`                | Actualizar estudiante         |
-| `DELETE` | `/estudiantes/:id`                | Eliminar estudiante           |
-| `GET`    | `/estudiantes/carrera/:carrera`   | Filtrar por carrera           |
-| `GET`    | `/estudiantes/semestre/:semestre` | Filtrar por semestre          |
-
-### 📚 Cursos
-
-| Método   | Endpoint                         | Descripción              |
-| -------- | -------------------------------- | ------------------------ |
-| `GET`    | `/cursos`                        | Obtener todos los cursos |
-| `GET`    | `/cursos/:id`                    | Obtener curso por ID     |
-| `POST`   | `/cursos`                        | Crear nuevo curso        |
-| `PUT`    | `/cursos/:id`                    | Actualizar curso         |
-| `DELETE` | `/cursos/:id`                    | Eliminar curso           |
-| `GET`    | `/cursos/categoria/:categoria`   | Filtrar por categoría    |
-| `GET`    | `/cursos/instructor/:instructor` | Filtrar por instructor   |
-| `GET`    | `/cursos/disponibles`            | Cursos con cupos         |
-| `GET`    | `/cursos/precio/:min/:max`       | Filtrar por precio       |
-
-### 🎫 Inscripciones
-
-| Método   | Endpoint                                  | Descripción                     |
-| -------- | ----------------------------------------- | ------------------------------- |
-| `GET`    | `/inscripciones`                          | Obtener todas las inscripciones |
-| `GET`    | `/inscripciones/:id`                      | Obtener inscripción por ID      |
-| `POST`   | `/inscripciones`                          | Crear nueva inscripción         |
-| `PUT`    | `/inscripciones/:id`                      | Actualizar inscripción          |
-| `DELETE` | `/inscripciones/:id`                      | Cancelar inscripción            |
-| `GET`    | `/inscripciones/estudiante/:estudianteId` | Por estudiante                  |
-| `GET`    | `/inscripciones/curso/:cursoId`           | Por curso                       |
-
-## 🛠️ Instalación y Configuración
-
-### Prerrequisitos
-
-- **Node.js**: v14.0 o superior
-- **NPM**: v6.0 o superior
-- **Git**: Para clonar el repositorio
-
-### Pasos de Instalación
+### 1. Clonar el repositorio
 
 ```bash
-# 1. Clonar el repositorio
-git clone https://github.com/brayandiazc/node_api_estudiantes.git
+git clone https://github.com/brayandiazc/udd-api-node.git
+cd udd-api-node
+```
 
-# 2. Entrar al directorio
-cd node_api_estudiantes
+### 2. Instalar dependencias
 
-# 3. Instalar dependencias
+```bash
 npm install
-
-# 4. Ejecutar en modo desarrollo
-npm run dev
 ```
 
-### Variables de Entorno
-
-Crea un archivo `.env` en la raíz del proyecto:
-
-```env
-PORT=3000
-NODE_ENV=development
-```
-
-## 📖 Uso de la API
-
-### Ejemplo: Crear un Estudiante
+### 3. Configurar variables de entorno
 
 ```bash
+cp .env.example .env
+# Edita .env si necesitas cambiar el puerto
+```
+
+## Configuración
+
+Las variables de entorno se documentan en [`.env.example`](.env.example). Cópialo a `.env` y ajusta los valores para tu entorno.
+
+| Variable   | Descripción                          | Valor por defecto |
+| ---------- | ------------------------------------ | ----------------- |
+| `PORT`     | Puerto del servidor HTTP             | `3000`            |
+| `NODE_ENV` | Entorno de ejecución                 | `development`     |
+
+> Nunca subas tu archivo `.env` con valores reales al repositorio. Ver [SECURITY.md](SECURITY.md) y [`docs/conventions/secrets.md`](docs/conventions/secrets.md).
+
+## Uso
+
+### Desarrollo local
+
+```bash
+npm run dev
+# La aplicación queda disponible en http://localhost:3000
+# Documentación Swagger en http://localhost:3000/api-docs
+```
+
+### Ejemplos de uso
+
+```bash
+# Listar todos los estudiantes
+curl http://localhost:3000/estudiantes
+
+# Crear un estudiante
 curl -X POST http://localhost:3000/estudiantes \
   -H "Content-Type: application/json" \
-  -d '{
-    "nombre": "Juan Pérez",
-    "edad": 20,
-    "email": "juan.perez@email.com",
-    "carrera": "Ingeniería Informática",
-    "semestre": 4
-  }'
-```
+  -d '{"nombre":"Juan Pérez","edad":20,"email":"juan.perez@email.com","carrera":"Ingeniería Informática","semestre":4}'
 
-### Ejemplo: Crear un Curso
-
-```bash
-curl -X POST http://localhost:3000/cursos \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nombre": "Curso de Node.js",
-    "duracion": "4 semanas",
-    "precio": 150000,
-    "instructor": "Carlos Mendoza",
-    "cupos": 25,
-    "categoria": "Backend"
-  }'
-```
-
-### Ejemplo: Inscribir un Estudiante
-
-```bash
+# Inscribir un estudiante en un curso
 curl -X POST http://localhost:3000/inscripciones \
   -H "Content-Type: application/json" \
-  -d '{
-    "estudianteId": 1,
-    "cursoId": 1
-  }'
+  -d '{"estudianteId":1,"cursoId":1}'
 ```
 
-## 📚 Documentación Swagger
+Para el contrato completo de la API, ver [`docs/architecture/api.md`](docs/architecture/api.md).
 
-La API incluye documentación automática con **Swagger UI**:
+## Arquitectura
 
-- **URL local**: `http://localhost:3000/api-docs`
-- **URL producción**: `https://node-api-estudiantes.vercel.app/api-docs`
+El proyecto sigue el patrón **MVC** en tres capas: las **rutas** reciben la petición y la delegan a los **controladores**, que aplican la lógica de negocio sobre los **modelos** (datos simulados en memoria). Detalle completo en [`docs/architecture/architecture.md`](docs/architecture/architecture.md).
 
-### Características de la Documentación
+## Stack Tecnológico
 
-- ✅ **Interactiva**: Prueba endpoints directamente
-- ✅ **Completa**: Todos los parámetros y respuestas
-- ✅ **Validación**: Esquemas de datos incluidos
-- ✅ **Ejemplos**: Casos de uso reales
+- **Node.js** + **Express** — runtime y framework web.
+- **swagger-jsdoc** + **swagger-ui-express** — documentación OpenAPI.
+- **dotenv** — configuración por variables de entorno.
+- **nodemon** — recarga automática en desarrollo.
+- **NES.css** — estilos retro de la vista de inicio.
 
-## 📁 Estructura del Proyecto
+Inventario completo (con versiones y justificación) en [`docs/architecture/stack.md`](docs/architecture/stack.md).
 
-```
-node_api_estudiantes/
-├── 📁 controllers/          # Lógica de negocio
-│   ├── estudianteController.js
-│   ├── cursoController.js
-│   └── inscripcionController.js
-├── 📁 models/              # Modelos de datos
-│   ├── estudianteModel.js
-│   ├── cursoModel.js
-│   └── inscripcionModel.js
-├── 📁 routes/              # Definición de rutas
-│   ├── estudianteRoutes.js
-│   ├── cursoRoutes.js
-│   └── inscripcionRoutes.js
-├── 📁 views/               # Vistas HTML
-│   └── index.html
-├── 📄 index.js             # Servidor principal
-├── 📄 package.json         # Dependencias
-├── 📄 vercel.json          # Configuración de despliegue
-└── 📄 README.md            # Documentación
+## Scripts Disponibles
+
+```bash
+npm start    # Inicia el servidor (node index.js)
+npm run dev  # Inicia en modo desarrollo con recarga automática (nodemon)
+npm test     # Ejecuta los tests (placeholder: aún no hay suite de tests)
 ```
 
-## 🛠️ Tecnologías Utilizadas
+## Testing
 
-### Backend
+Actualmente el proyecto **no incluye tests** — `npm test` es un placeholder. Se recomienda adoptar **Jest** + **Supertest** para las pruebas unitarias y de integración. Convenciones en [`docs/conventions/testing.md`](docs/conventions/testing.md).
 
-- **Node.js**: Runtime de JavaScript
-- **Express.js**: Framework web
-- **Swagger**: Documentación de API
-- **Nodemon**: Reinicio automático en desarrollo
+```bash
+npm test
+```
 
-### Frontend
+## Deployment
 
-- **NES.css**: Framework CSS retro
-- **HTML5**: Estructura de la página
-- **JavaScript**: Interactividad
+El proyecto se despliega en **Vercel** de forma automática desde la rama `main`.
 
-### Herramientas
+| Ambiente   | URL                                          | Rama   | Deploy     |
+| ---------- | -------------------------------------------- | ------ | ---------- |
+| Producción | https://node-api-estudiantes.vercel.app      | `main` | Automático |
 
-- **Git**: Control de versiones
-- **Vercel**: Despliegue en la nube
-- **Postman/cURL**: Pruebas de API
+La configuración vive en [`vercel.json`](vercel.json). Procedimiento detallado en [`docs/conventions/deploy.md`](docs/conventions/deploy.md).
 
-## 🚀 Despliegue
+## Contribución
 
-### Despliegue en Vercel
+Lee la [Guía de Contribución](CONTRIBUTING.md) para conocer el flujo de trabajo (Git Flow), los estándares de código, el formato de commits (Conventional Commits) y el proceso de Pull Requests.
 
-El proyecto está desplegado automáticamente en Vercel:
+## Troubleshooting
 
-- **🌐 URL de producción**: [https://node-api-estudiantes.vercel.app/](https://node-api-estudiantes.vercel.app/)
-- **📚 Documentación**: [https://node-api-estudiantes.vercel.app/api-docs](https://node-api-estudiantes.vercel.app/api-docs)
+#### Error: "EADDRINUSE: address already in use :::3000"
 
-### Configuración de Despliegue
+El puerto 3000 ya está ocupado. Cambia el puerto o libera el proceso:
 
-El archivo `vercel.json` contiene la configuración necesaria para el despliegue automático.
+```bash
+PORT=3001 npm run dev
+# o identifica el proceso que usa el puerto 3000
+lsof -i :3000
+```
 
-## 🎓 Casos de Uso Educativos
+#### Los datos vuelven a su estado inicial al reiniciar
 
-### Para Estudiantes de Programación
+Es el comportamiento esperado: los datos son simulados en memoria y no se persisten. Para persistencia real habría que integrar una base de datos (ver [roadmap](docs/product/roadmap.md)).
 
-1. **Aprender APIs RESTful**: Endpoints bien estructurados
-2. **Patrón MVC**: Separación clara de responsabilidades
-3. **Validaciones**: Manejo robusto de datos
-4. **Documentación**: Swagger como estándar de la industria
-5. **Despliegue**: Proceso completo de publicación
+### Obtener ayuda
 
-### Para Instructores
+1. Revisa la [documentación](docs/README.md).
+2. Busca en los [issues existentes](https://github.com/brayandiazc/udd-api-node/issues).
+3. Abre un nuevo issue o contacta a <contact@brayandiazc.com>.
 
-1. **Ejemplos prácticos**: Código funcional y comentado
-2. **Progresión gradual**: Desde básico hasta avanzado
-3. **Buenas prácticas**: Estructura profesional
-4. **Documentación completa**: Fácil de seguir
+## Roadmap
 
-## 🤝 Contribuir
+Visión y próximos pasos en [`docs/product/roadmap.md`](docs/product/roadmap.md): autenticación JWT, migración a base de datos real, suite de tests, estadísticas y mejoras de UI.
 
-¡Las contribuciones son bienvenidas! Para contribuir:
+## Documentación
 
-1. **Fork** el repositorio
-2. Crea una **rama** para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. **Commit** tus cambios (`git commit -am 'Agregar nueva funcionalidad'`)
-4. **Push** a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un **Pull Request**
+Toda la documentación vive en [`docs/`](docs/README.md):
 
-### Ideas para Contribuir
+| Documento                                                                | Responde a                           |
+| ------------------------------------------------------------------------ | ------------------------------------ |
+| [`docs/architecture/architecture.md`](docs/architecture/architecture.md) | ¿Cómo está construido?               |
+| [`docs/architecture/stack.md`](docs/architecture/stack.md)               | ¿Con qué tecnologías?                |
+| [`docs/architecture/database.md`](docs/architecture/database.md)         | ¿Qué entidades y relaciones?         |
+| [`docs/architecture/api.md`](docs/architecture/api.md)                   | ¿Qué endpoints expone?               |
+| [`docs/architecture/auth.md`](docs/architecture/auth.md)                 | ¿Cómo se autentica y autoriza?       |
+| [`docs/architecture/design.md`](docs/architecture/design.md)             | ¿Cómo se diseña y por qué?           |
+| [`docs/product/business-model.md`](docs/product/business-model.md)       | ¿Por qué existe / cómo aporta valor? |
+| [`docs/product/roadmap.md`](docs/product/roadmap.md)                     | ¿Hacia dónde va?                     |
+| [`docs/decisions/`](docs/decisions/README.md)                            | ¿Por qué tomamos cada decisión?      |
+| [`docs/conventions/`](docs/conventions/README.md)                        | ¿Cómo trabajamos en este repo?       |
 
-- 🔐 Agregar autenticación JWT
-- 📊 Implementar estadísticas y reportes
-- 🗄️ Migrar a base de datos real (MongoDB/PostgreSQL)
-- 🎨 Mejorar la interfaz de usuario
-- 📱 Crear aplicación móvil
-- 🧪 Agregar tests unitarios
+## Soporte
 
-## 📄 Licencia
+¿Problemas o sugerencias? Abre un issue en [el repositorio](https://github.com/brayandiazc/udd-api-node/issues) o escribe a <contact@brayandiazc.com>.
 
-Este proyecto está bajo la **Licencia MIT** - ver el archivo [LICENSE](LICENSE) para detalles.
+## Versionado
 
-## 👨‍💻 Autor
+Usamos [Git](https://git-scm.com) para el control de versiones y seguimos [Semantic Versioning](https://semver.org/). Consulta las [etiquetas](https://github.com/brayandiazc/udd-api-node/tags) para ver las versiones disponibles y el [CHANGELOG](CHANGELOG.md).
 
-**Brayan Diaz C**
+## Autores
 
-- 🌐 [Portfolio](https://brayandiazc.com)
-- 📧 [Email](mailto:contact@brayandiazc.com)
-- 🐙 [GitHub](https://github.com/brayandiazc)
-- 💼 [LinkedIn](https://linkedin.com/in/brayandiazc)
+- **Brayan Diaz C** — _Trabajo inicial_ — [@brayandiazc](https://github.com/brayandiazc)
+
+Consulta también la lista de [contribuidores](https://github.com/brayandiazc/udd-api-node/contributors).
+
+## Licencia
+
+Este proyecto está bajo la licencia [MIT](LICENSE).
+
+## Apóyanos
+
+Si este proyecto te resulta útil y quieres apoyar su desarrollo:
+
+- [GitHub Sponsors](https://github.com/sponsors/brayandiazc)
+- [Ko-fi](https://ko-fi.com/brayandiazc)
+
+## Agradecimientos
+
+Gracias a quienes contribuyen a este proyecto. Si encuentras valor en él, puedes:
+
+- Compartir el proyecto 📤
+- Invitar un café ☕
+- Abrir un issue o PR 🙌
+- Dejar tu agradecimiento con un comentario 💬
 
 ---
 
-<div align="center">
-
-⌨️ **Desarrollado con ❤️ por Brayan Diaz C** 😊
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/brayandiazc)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/brayandiazc)
-[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://brayandiazc.com)
-
-</div>
+⌨️ con ❤️ por [@brayandiazc](https://github.com/brayandiazc)
