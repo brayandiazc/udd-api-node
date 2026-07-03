@@ -1,5 +1,6 @@
 // Cargar variables de entorno desde el archivo .env
-require("dotenv").config();
+// (quiet: true evita el mensaje informativo que dotenv v17 imprime al iniciar)
+require("dotenv").config({ quiet: true });
 
 // Importamos el módulo de Express
 const express = require("express");
